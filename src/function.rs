@@ -18,7 +18,7 @@ impl Clone for Function {
 
 impl crate::object::ObjectAddon for Function {
     fn typename(&self, _: &mut Machine) -> String {
-        return "Func".into();
+        "Func".into()
     }
 
     fn to_String(&self, _m: &mut Machine) -> String {
@@ -39,13 +39,11 @@ impl Object for Function {
                 let func = vf.clone();
                 // println!("{:?}",args[0].to_String(m));
                 m.last_frame_mut().stack[0] = args[0];
-                for i in 0..args.len() {
-                    m.last_frame_mut().stack[i] = args[i];
-                }
+                m.last_frame_mut().stack[..args.len()].copy_from_slice(&args[..]);
                 let code = func.code;
                 let v = m.run_code(code);
                 match v {
-                    Ok(v) => return v,
+                    Ok(v) => v,
                     Err(e) => {
                         eprintln!("{}", e);
                         panic!("");

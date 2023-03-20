@@ -10,7 +10,7 @@ pub enum VmError {
 
 impl VmError {
     fn as_str(&self) -> String {
-        match self.clone() {
+        match self.deref() {
             VmError::RuntimeError(cause) => format!("Runtime Error: `{}`", cause),
             VmError::LabelNotFound(id) => format!("Label `{}` not found", id),
             VmError::GlobalNotFound(id) => format!("Global `{}` not found", id),
@@ -24,10 +24,10 @@ impl VmError {
 impl Error for VmError {
     fn description(&self) -> &str {
         match self {
-            &VmError::Expected(_, _) => "Expected: ",
-            &VmError::GlobalNotFound(_) => "GlobalNotFound:",
-            &VmError::LabelNotFound(_) => "LabelNotFound:",
-            &VmError::RuntimeError(_) => "RuntimeError:",
+            VmError::Expected(_, _) => "Expected: ",
+            VmError::GlobalNotFound(_) => "GlobalNotFound:",
+            VmError::LabelNotFound(_) => "LabelNotFound:",
+            VmError::RuntimeError(_) => "RuntimeError:",
         }
     }
 
@@ -37,6 +37,7 @@ impl Error for VmError {
 }
 
 use std::fmt;
+use std::ops::Deref;
 
 impl fmt::Display for VmError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
