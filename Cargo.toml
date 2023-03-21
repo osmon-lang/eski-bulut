@@ -1,10 +1,10 @@
 [package]
 name = "bulut"
 version = "0.3.0"
-edition = "2018"
+edition = "2021"
 homepage = "https://osmon.dev"
 documentation = "https://wiki.osmon.dev"
-repository = "https://github.com/osmon-lang/osmon"
+repository = "https://github.com/osmon-lang/bulut"
 description = "Lightweight and fast Virtual Machine built for Osmon Programming Language"
 authors = ["Yuri Katsuki <yuri@katsuki.moe>"]
 readme = "readme.md"
